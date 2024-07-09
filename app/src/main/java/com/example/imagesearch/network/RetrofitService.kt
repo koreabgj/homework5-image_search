@@ -10,9 +10,9 @@ interface RetrofitService {
     @GET("v2/search/image")
     suspend fun getSearchImages(
         @Header("Authorization") authorization: String = "KakaoAK d7dad5f8832c904973babb0a21d079ab",
-        @Query("query") query: String ,
+        @Query("query") query: String,
         @Query("sort") sort: String,
         @Query("page") page: Int,
-        @Query("size") size: Int,
+        @Query("size") size: Int
     ): Response<SearchResponse>
 }

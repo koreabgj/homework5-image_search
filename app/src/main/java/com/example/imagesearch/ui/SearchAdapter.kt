@@ -30,7 +30,7 @@ class SearchAdapter(
 
         fun bind(item: ImageDocuments) {
             binding.apply {
-                Glide.with(binding.root)
+                Glide.with(root)
                     .load(item.thumbnailUrl)
                     .into(ivThumbnail)
 

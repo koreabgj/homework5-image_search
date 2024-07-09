@@ -29,9 +29,14 @@ class KeepAdapter(
         }
 
         fun bind(imageUrl: String) {
-            Glide.with(binding.root)
-                .load(imageUrl)
-                .into(binding.ivThumbnail)
+            binding.apply {
+                Glide.with(root)
+                    .load(imageUrl)
+                    .into(ivThumbnail)
+
+                // tvSite.text = item.displaySiteName
+                // tvDatetime.text = item.dateTime.toString()
+            }
         }
     }
 
