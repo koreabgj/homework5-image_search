@@ -36,19 +36,23 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // 앱 실행시 SearchFragment
+        // 앱 실행 시 SearchFragment 표시
         if (savedInstanceState == null) {
             showFragment(SearchFragment(), R.id.fragment_container_search)
         }
 
-        // 이미지 검색 클릭시 SearchFragment
+        // 이미지 검색 클릭 시 SearchFragment 표시
         binding.btnSearch.setOnClickListener {
             showFragment(SearchFragment(), R.id.fragment_container_search)
+            binding.fragmentContainerSearch.visibility = View.VISIBLE
+            binding.fragmentContainerKeep.visibility = View.GONE
         }
 
-        // 이미지 저장 클릭시 KeepFragment
+        // 이미지 보관 클릭 시 KeepFragment 표시
         binding.btnKeep.setOnClickListener {
             showFragment(KeepFragment(), R.id.fragment_container_keep)
+            binding.fragmentContainerSearch.visibility = View.GONE
+            binding.fragmentContainerKeep.visibility = View.VISIBLE
         }
 
         // 검색 실행
@@ -76,7 +80,6 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
     }
-
 
     // 검색어 저장
     private fun searchImages() {
@@ -131,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             arguments = bundle
         }
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, keepFragment)
+            .replace(R.id.fragment_container_keep, keepFragment)
             .addToBackStack(null)
             .commit()
     }

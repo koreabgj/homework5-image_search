@@ -44,6 +44,8 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx.v171)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.glide)
     implementation(libs.retrofit)
