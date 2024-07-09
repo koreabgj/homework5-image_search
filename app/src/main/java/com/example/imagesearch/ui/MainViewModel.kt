@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
     private val _thumbnailUrls = MutableLiveData<MutableList<String>>(mutableListOf())
-    val thumbnailUrlList: LiveData<MutableList<String>> = _thumbnailUrls
+    val thumbnailUrls: LiveData<MutableList<String>> = _thumbnailUrls
 
     private val _imageDocuments = MutableLiveData<List<ImageDocuments>>()
     val imageDocuments: LiveData<List<ImageDocuments>> = _imageDocuments

@@ -29,7 +29,7 @@ class KeepAdapter(
         }
 
         fun bind(imageUrl: String) {
-            Glide.with(binding.ivThumbnail.context)
+            Glide.with(binding.root)
                 .load(imageUrl)
                 .into(binding.ivThumbnail)
         }

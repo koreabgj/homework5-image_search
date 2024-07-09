@@ -48,9 +48,9 @@ class KeepFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        viewModel.thumbnailUrlList.observe(viewLifecycleOwner, Observer { list ->
+        viewModel.thumbnailUrls.observe(viewLifecycleOwner) { list ->
             adapter.updateList(list)
-        })
+        }
     }
 
     override fun onDestroyView() {

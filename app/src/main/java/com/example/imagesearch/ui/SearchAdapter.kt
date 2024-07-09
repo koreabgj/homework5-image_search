@@ -30,12 +30,11 @@ class SearchAdapter(
 
         fun bind(item: ImageDocuments) {
             binding.apply {
-                Glide.with(binding.root)// binding.root 사용 가능
+                Glide.with(binding.root)
                     .load(item.thumbnailUrl)
                     .into(ivThumbnail)
 
                 tvSite.text = item.displaySiteName
-
                 tvDatetime.text = item.dateTime.toString()
 
                 binding.ivLike.setOnClickListener {
