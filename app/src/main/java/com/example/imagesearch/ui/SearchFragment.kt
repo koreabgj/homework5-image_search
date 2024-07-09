@@ -36,6 +36,7 @@ class SearchFragment : Fragment() {
         adapter = SearchAdapter(object : SearchAdapter.OnItemClickListener {
             override fun onItemClick(thumbnailUrl: String, position: Int) {
                 // 이미지 클릭시 보관함으로 이동
+                viewModel.addThumbnailUrl(thumbnailUrl)
                 navigateToKeepFragment(thumbnailUrl)
             }
         })

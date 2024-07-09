@@ -11,11 +11,12 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    private val _thumbnailUrls = MutableLiveData<List<String>>()
-    val thumbnailUrlList: LiveData<List<String>> = _thumbnailUrls
+    private val _thumbnailUrls = MutableLiveData<MutableList<String>>(mutableListOf())
+    val thumbnailUrlList: LiveData<MutableList<String>> = _thumbnailUrls
 
     private val _imageDocuments = MutableLiveData<List<ImageDocuments>>()
     val imageDocuments: LiveData<List<ImageDocuments>> = _imageDocuments
+
     fun searchImages(query: String, sort: String, page: Int, size: Int) {
         viewModelScope.launch {
             val result = repository.searchImages(query, sort, page, size)
@@ -23,11 +24,23 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-
     fun setThumbnailUrls(thumbnailUrls: List<String>) {
-        _thumbnailUrls.value = thumbnailUrls
+        _thumbnailUrls.value = thumbnailUrls.toMutableList()
     }
 
+    fun addThumbnailUrl(thumbnailUrl: String) {
+        _thumbnailUrls.value?.let {
+            it.add(thumbnailUrl)
+            _thumbnailUrls.value = it
+        }
+    }
+
+    fun removeThumbnailUrl(thumbnailUrl: String) {
+        _thumbnailUrls.value?.let {
+            it.remove(thumbnailUrl)
+            _thumbnailUrls.value = it
+        }
+    }
 }
 
 class MainViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {

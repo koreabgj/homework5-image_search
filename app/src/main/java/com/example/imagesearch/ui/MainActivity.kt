@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        enableEdgeToEdge()
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -39,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         // 앱 실행 시 SearchFragment 표시
         if (savedInstanceState == null) {
             showFragment(SearchFragment(), R.id.fragment_container_search)
+            showSearchBar()
         }
 
         // 이미지 검색 클릭 시 SearchFragment 표시
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             showFragment(SearchFragment(), R.id.fragment_container_search)
             binding.fragmentContainerSearch.visibility = View.VISIBLE
             binding.fragmentContainerKeep.visibility = View.GONE
+            showSearchBar()
         }
 
         // 이미지 보관 클릭 시 KeepFragment 표시
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             showFragment(KeepFragment(), R.id.fragment_container_keep)
             binding.fragmentContainerSearch.visibility = View.GONE
             binding.fragmentContainerKeep.visibility = View.VISIBLE
+            hideSearchBar()
         }
 
         // 검색 실행
@@ -123,6 +125,18 @@ class MainActivity : AppCompatActivity() {
     private fun formatDateTime(dateTime: Date): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         return dateFormat.format(dateTime)
+    }
+
+    // 검색바와 검색 버튼을 숨기기
+    private fun hideSearchBar() {
+        binding.etSearch.visibility = View.GONE
+        binding.btnExecuteSearch.visibility = View.GONE
+    }
+
+    // 검색바와 검색 버튼을 보이기
+    private fun showSearchBar() {
+        binding.etSearch.visibility = View.VISIBLE
+        binding.btnExecuteSearch.visibility = View.VISIBLE
     }
 
     // Bundle 객체를 생성하여 KeepFragment에 전달할 데이터로 thumbnailUrl을 설정

@@ -7,36 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="50dp"
-        android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/card_search"
-        app:layout_constraintTop_toBottomOf="@+id/et_search"
-        app:spanCount="2"
-        tools:ignore="MissingConstraints"
-        tools:listitem="@layout/item_layout" />
-
-    <!-- 이미지 검색 프래그먼트 -->
-    <FrameLayout
-        android:id="@+id/fragment_container_search"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/btn_keep"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="NotSibling" />
-
     <EditText
         android:id="@+id/et_search"
         android:layout_width="0dp"
         android:layout_height="33dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="21dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/et_search_background"
         android:hint="   검색어를 입력하세요"
@@ -51,12 +27,37 @@
         android:id="@+id/btn_execute_search"
         android:layout_width="85dp"
         android:layout_height="40dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="24dp"
         android:gravity="center"
         android:text="검색"
         app:layout_constraintBottom_toBottomOf="@id/et_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/et_search" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:padding="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/btn_execute_search"
+        app:layout_constraintBottom_toTopOf="@+id/card_search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:spanCount="2"
+        tools:listitem="@layout/item_layout" />
+
+    <!-- 이미지 검색 프래그먼트 -->
+    <FrameLayout
+        android:id="@+id/fragment_container_search"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_keep"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="NotSibling" />
 
     <!-- 이미지 보관 프래그먼트 -->
     <FrameLayout
@@ -74,7 +75,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="#4682B4 "
+        android:backgroundTint="#4682B4"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_keep"
@@ -98,7 +99,7 @@
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="#4682B4 "
+        android:backgroundTint="#4682B4"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">

@@ -14,7 +14,9 @@ import com.example.imagesearch.databinding.FragmentKeepBinding
 
 class KeepFragment : Fragment() {
 
-    private lateinit var binding: FragmentKeepBinding
+    private var _binding: FragmentKeepBinding? = null
+    private val binding: FragmentKeepBinding
+        get() = _binding!!
     private lateinit var adapter: KeepAdapter
     private lateinit var viewModel: MainViewModel
 
@@ -27,24 +29,17 @@ class KeepFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentKeepBinding.inflate(inflater, container, false)
+        _binding = FragmentKeepBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        // 선택된 썸네일 이미지 리스트를 받아오기
-        val thumbnailUrls = arguments?.getStringArrayList(THUMBNAIL_URLS_KEY)
-        val thumbnailUrlList = mutableListOf<String>()
-        thumbnailUrls?.let {
-            thumbnailUrlList.addAll(it)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        adapter = KeepAdapter(thumbnailUrlList, object : KeepAdapter.OnItemClickListener {
+        adapter = KeepAdapter(mutableListOf(), object : KeepAdapter.OnItemClickListener {
             @SuppressLint("NotifyDataSetChanged")
             override fun onItemClick(thumbnailUrl: String) {
-                // 클릭한 이미지 위치를 찾아서 삭제
-                val position = thumbnailUrlList.indexOf(thumbnailUrl)
-                if (position != -1) {
-                    thumbnailUrlList.removeAt(position)
-                    adapter.notifyDataSetChanged()
-                }
+                viewModel.removeThumbnailUrl(thumbnailUrl)
             }
         })
 
@@ -54,11 +49,12 @@ class KeepFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         viewModel.thumbnailUrlList.observe(viewLifecycleOwner, Observer { list ->
-            thumbnailUrlList.clear()
-            thumbnailUrlList.addAll(list)
-            adapter.notifyDataSetChanged()
+            adapter.updateList(list)
         })
+    }
 
-        return binding.root
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

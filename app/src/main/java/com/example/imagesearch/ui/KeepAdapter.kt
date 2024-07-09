@@ -1,5 +1,6 @@
 package com.example.imagesearch.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.imagesearch.databinding.ItemLayoutBinding
 
 class KeepAdapter(
-    private val thumbnailUrlList: List<String>,
+    private val thumbnailUrlList: MutableList<String>,
     private val itemClickListener: OnItemClickListener,
 ) : RecyclerView.Adapter<KeepAdapter.ImageViewHolder>() {
 
@@ -49,5 +50,12 @@ class KeepAdapter(
 
     override fun getItemCount(): Int {
         return thumbnailUrlList.size
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(newList: List<String>) {
+        thumbnailUrlList.clear()
+        thumbnailUrlList.addAll(newList)
+        notifyDataSetChanged()
     }
 }
