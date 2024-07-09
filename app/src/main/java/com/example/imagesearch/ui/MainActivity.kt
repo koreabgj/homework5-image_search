@@ -1,15 +1,10 @@
 package com.example.imagesearch.ui
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.imagesearch.databinding.ActivityMainBinding
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.imagesearch.R
@@ -23,17 +18,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         // 앱 실행 시 SearchFragment 표시
         if (savedInstanceState == null) {
@@ -90,10 +78,11 @@ class MainActivity : AppCompatActivity() {
             query = searchQuery,
             sort = "accuracy",
             page = 1,
-            size = 10
+            size = 20
         )
         saveLastSearch(searchQuery)
         showFragment(SearchFragment(), R.id.fragment_container_search)
+        showSearchBar()
     }
 
     private fun saveLastSearch(searchQuery: String) {
@@ -127,19 +116,19 @@ class MainActivity : AppCompatActivity() {
         return dateFormat.format(dateTime)
     }
 
-    // 검색바와 검색 버튼을 숨기기
+    // 검색바 숨기기
     private fun hideSearchBar() {
         binding.etSearch.visibility = View.GONE
         binding.btnExecuteSearch.visibility = View.GONE
     }
 
-    // 검색바와 검색 버튼을 보이기
+    // 검색바 보이기
     private fun showSearchBar() {
         binding.etSearch.visibility = View.VISIBLE
         binding.btnExecuteSearch.visibility = View.VISIBLE
     }
 
-    // Bundle 객체를 생성하여 KeepFragment에 전달할 데이터로 thumbnailUrl을 설정
+    // Bundle 객체를 생성하여 KeepFragment에 전달
     fun navigateToKeepFragment(thumbnailUrl: String) {
         val bundle = Bundle().apply {
             putString(KeepFragment.THUMBNAIL_URLS_KEY, thumbnailUrl)

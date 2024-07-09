@@ -13,7 +13,7 @@ class KeepAdapter(
 ) : RecyclerView.Adapter<KeepAdapter.ImageViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(thumbnailUrl: String)
+        fun onItemClick(thumbnailUrlList: String)
     }
 
     inner class ImageViewHolder(private val binding: ItemLayoutBinding) :
@@ -28,14 +28,14 @@ class KeepAdapter(
             }
         }
 
-        fun bind(imageUrl: String) {
+        fun bind(thumbnailUrlList: String) {
             binding.apply {
                 Glide.with(root)
-                    .load(imageUrl)
+                    .load(thumbnailUrlList)
                     .into(ivThumbnail)
 
-                // tvSite.text = item.displaySiteName
-                // tvDatetime.text = item.dateTime.toString()
+                tvSite.text = thumbnailUrlList
+                tvDatetime.text = thumbnailUrlList
             }
         }
     }
