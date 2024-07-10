@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         formatDateTime(dateTime)
     }
 
-    private fun showFragment(fragment: Fragment, containerId: Int) {
+    fun showFragment(fragment: Fragment, containerId: Int) {
         supportFragmentManager.beginTransaction()
             .replace(containerId, fragment)
             .addToBackStack(null)
@@ -126,20 +126,6 @@ class MainActivity : AppCompatActivity() {
     private fun showSearchBar() {
         binding.etSearch.visibility = View.VISIBLE
         binding.btnExecuteSearch.visibility = View.VISIBLE
-    }
-
-    // Bundle 객체를 생성하여 KeepFragment에 전달
-    fun navigateToKeepFragment(thumbnailUrl: String) {
-        val bundle = Bundle().apply {
-            putString(KeepFragment.THUMBNAIL_URLS_KEY, thumbnailUrl)
-        }
-        val keepFragment = KeepFragment().apply {
-            arguments = bundle
-        }
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_keep, keepFragment)
-            .addToBackStack(null)
-            .commit()
     }
 
     companion object {

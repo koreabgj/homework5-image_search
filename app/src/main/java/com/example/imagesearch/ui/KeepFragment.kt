@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,9 +19,9 @@ class KeepFragment : Fragment() {
     private lateinit var adapter: KeepAdapter
     private lateinit var viewModel: MainViewModel
 
-    companion object {
-        const val THUMBNAIL_URLS_KEY = "thumbnail_urls"
-    }
+//    companion object {
+//        const val THUMBNAIL_URLS_KEY = "thumbnail_urls"
+//    }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -48,6 +47,8 @@ class KeepFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+
+        // ViewModel을 관찰하여 thumbnailUrls를 업데이트
         viewModel.thumbnailUrls.observe(viewLifecycleOwner) { list ->
             adapter.updateList(list)
         }
