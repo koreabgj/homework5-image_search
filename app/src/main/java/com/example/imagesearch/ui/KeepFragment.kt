@@ -19,10 +19,6 @@ class KeepFragment : Fragment() {
     private lateinit var adapter: KeepAdapter
     private lateinit var viewModel: MainViewModel
 
-//    companion object {
-//        const val THUMBNAIL_URLS_KEY = "thumbnail_urls"
-//    }
-
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +29,9 @@ class KeepFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         adapter = KeepAdapter(mutableListOf(), object : KeepAdapter.OnItemClickListener {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onItemClick(thumbnailUrl: String) {
-                viewModel.removeThumbnailUrl(thumbnailUrl)
+            override fun onItemClick(thumbnail: Thumbnail) {
+                viewModel.removeThumbnail(thumbnail)
             }
         })
 
@@ -48,8 +41,7 @@ class KeepFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
-        // ViewModel을 관찰하여 thumbnailUrls를 업데이트
-        viewModel.thumbnailUrls.observe(viewLifecycleOwner) { list ->
+        viewModel.thumbnails.observe(viewLifecycleOwner) { list ->
             adapter.updateList(list)
         }
     }

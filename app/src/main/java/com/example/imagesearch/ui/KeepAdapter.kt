@@ -8,12 +8,12 @@ import com.bumptech.glide.Glide
 import com.example.imagesearch.databinding.ItemLayoutBinding
 
 class KeepAdapter(
-    private val thumbnailUrlList: MutableList<String>,
+    private val thumbnailList: MutableList<Thumbnail>,
     private val itemClickListener: OnItemClickListener,
 ) : RecyclerView.Adapter<KeepAdapter.ImageViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(thumbnailUrlList: String)
+        fun onItemClick(thumbnail: Thumbnail)
     }
 
     inner class ImageViewHolder(private val binding: ItemLayoutBinding) :
@@ -23,19 +23,19 @@ class KeepAdapter(
             binding.root.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    itemClickListener.onItemClick(thumbnailUrlList[position])
+                    itemClickListener.onItemClick(thumbnailList[position])
                 }
             }
         }
 
-        fun bind(thumbnailUrlList: String) {
+        fun bind(thumbnail: Thumbnail) {
             binding.apply {
                 Glide.with(root)
-                    .load(thumbnailUrlList)
+                    .load(thumbnail.url)
                     .into(ivThumbnail)
 
-                tvSite.text = thumbnailUrlList
-                tvDatetime.text = thumbnailUrlList
+                tvSite.text = thumbnail.siteName
+                tvDatetime.text = thumbnail.dateTime
             }
         }
     }
@@ -50,17 +50,17 @@ class KeepAdapter(
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.bind(thumbnailUrlList[position])
+        holder.bind(thumbnailList[position])
     }
 
     override fun getItemCount(): Int {
-        return thumbnailUrlList.size
+        return thumbnailList.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(newList: List<String>) {
-        thumbnailUrlList.clear()
-        thumbnailUrlList.addAll(newList)
+    fun updateList(newList: List<Thumbnail>) {
+        thumbnailList.clear()
+        thumbnailList.addAll(newList)
         notifyDataSetChanged()
     }
 }

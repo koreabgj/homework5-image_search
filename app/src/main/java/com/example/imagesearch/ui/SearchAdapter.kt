@@ -1,5 +1,6 @@
 package com.example.imagesearch.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,13 +15,14 @@ class SearchAdapter(
 
     private var imageDocuments: List<ImageDocuments> = emptyList()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(list: List<ImageDocuments>) {
         imageDocuments = list
         notifyDataSetChanged()
     }
 
     interface OnItemClickListener {
-        fun onItemClick(thumbnailUrl: String, position: Int)
+        fun onItemClick(thumbnail: Thumbnail)
     }
 
     inner class ViewHolder(private val binding: ItemLayoutBinding) :
@@ -44,10 +46,15 @@ class SearchAdapter(
                         if (isLiked) R.drawable.img_favorite else R.drawable.img_empty_favorite
                     binding.ivLike.setImageResource(imageResource)
 
-                    // 클릭한 이미지의 위치를 전달
+                    // 클릭한 이미지 전달
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        itemClickListener.onItemClick(thumbnailUrl = "", position)
+                        val thumbnail = Thumbnail(
+                            url = item.thumbnailUrl,
+                            siteName = item.displaySiteName,
+                            dateTime = item.dateTime.toString()
+                        )
+                        itemClickListener.onItemClick(thumbnail)
                     }
                 }
             }
