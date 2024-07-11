@@ -30,7 +30,7 @@ class KeepFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         adapter = KeepAdapter(mutableListOf(), object : KeepAdapter.OnItemClickListener {
-            override fun onItemClick(thumbnail: Thumbnail) {
+            override fun onItemClick(thumbnail: ThumbnailModel) {
                 viewModel.removeThumbnail(thumbnail)
             }
         })

@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    private val _thumbnails = MutableLiveData<MutableList<Thumbnail>>(mutableListOf())
-    val thumbnails: LiveData<MutableList<Thumbnail>> = _thumbnails
+    private val _thumbnails = MutableLiveData<MutableList<ThumbnailModel>>(mutableListOf())
+    val thumbnails: LiveData<MutableList<ThumbnailModel>> = _thumbnails
 
     private val _imageDocuments = MutableLiveData<List<ImageDocuments>>()
     val imageDocuments: LiveData<List<ImageDocuments>> = _imageDocuments
@@ -24,14 +24,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun addThumbnail(thumbnail: Thumbnail) {
+    fun addThumbnail(thumbnail: ThumbnailModel) {
         _thumbnails.value?.let {
             it.add(thumbnail)
             _thumbnails.value = it
         }
     }
 
-    fun removeThumbnail(thumbnail: Thumbnail) {
+    fun removeThumbnail(thumbnail: ThumbnailModel) {
         _thumbnails.value?.let {
             it.remove(thumbnail)
             _thumbnails.value = it

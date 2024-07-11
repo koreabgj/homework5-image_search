@@ -22,7 +22,7 @@ class SearchAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(thumbnail: Thumbnail)
+        fun onItemClick(thumbnail: ThumbnailModel)
     }
 
     inner class ViewHolder(private val binding: ItemLayoutBinding) :
@@ -49,7 +49,7 @@ class SearchAdapter(
                     // 클릭한 이미지 전달
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        val thumbnail = Thumbnail(
+                        val thumbnail = ThumbnailModel(
                             url = item.thumbnailUrl,
                             siteName = item.displaySiteName,
                             dateTime = item.dateTime.toString()

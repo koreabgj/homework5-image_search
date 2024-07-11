@@ -31,7 +31,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = SearchAdapter(object : SearchAdapter.OnItemClickListener {
-            override fun onItemClick(thumbnail: Thumbnail) {
+            override fun onItemClick(thumbnail: ThumbnailModel) {
                 viewModel.addThumbnail(thumbnail)
                 navigateToKeepFragment()
             }

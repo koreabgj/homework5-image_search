@@ -8,12 +8,12 @@ import com.bumptech.glide.Glide
 import com.example.imagesearch.databinding.ItemLayoutBinding
 
 class KeepAdapter(
-    private val thumbnailList: MutableList<Thumbnail>,
+    private val thumbnailList: MutableList<ThumbnailModel>,
     private val itemClickListener: OnItemClickListener,
 ) : RecyclerView.Adapter<KeepAdapter.ImageViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(thumbnail: Thumbnail)
+        fun onItemClick(thumbnail: ThumbnailModel)
     }
 
     inner class ImageViewHolder(private val binding: ItemLayoutBinding) :
@@ -28,7 +28,7 @@ class KeepAdapter(
             }
         }
 
-        fun bind(thumbnail: Thumbnail) {
+        fun bind(thumbnail: ThumbnailModel) {
             binding.apply {
                 Glide.with(root)
                     .load(thumbnail.url)
@@ -58,7 +58,7 @@ class KeepAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateList(newList: List<Thumbnail>) {
+    fun updateList(newList: List<ThumbnailModel>) {
         thumbnailList.clear()
         thumbnailList.addAll(newList)
         notifyDataSetChanged()
